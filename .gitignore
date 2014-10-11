@@ -46,6 +46,10 @@ coverage.xml
 
 # Django stuff:
 *.log
+Include/
+include/
+Scripts/
+scripts/
 
 # Sphinx documentation
 docs/_build/
