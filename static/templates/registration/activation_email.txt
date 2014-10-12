@@ -1,0 +1,14 @@
+{% load i18n %}
+{% trans "Ativação de Conta" %} {{ site.name }}:
+
+Bem vindo ao Orçamento Facil
+
+Clik no link abaixo para ativar seu registro
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+Obrigado,
+
+Equipe Orçamento Facil.
+
+{% blocktrans %}Link is valid for {{ expiration_days }} days.{% endblocktrans %}

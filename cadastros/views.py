@@ -125,3 +125,11 @@ def edit_produtos(request, username=''):
 	context = {'single_user': single_user, 'produto_form': produto_form}
 
 	return render(request, template, context)
+
+
+def simple_list(request):
+	queryset = Simple.objects.all()
+	template = 'edit_produtos.html'
+	table = SimpleTable(queryset)
+
+	return render(request, template,{"table": table})

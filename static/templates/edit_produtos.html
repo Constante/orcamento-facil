@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{# {% load render_table from django_tables2 %} #}
+
+
+{% block content %}
+{{ single_user }}
+
+<ul>
+	
+{% for item in single_user.produtos.all %}
+<li>{{ item }}</li>
+
+{% endfor %}
+</ul>
+
+{# {% render_table table %} #}
+
+
+<form method="POST" action="">	{% csrf_token %}
+{{ produto_form.as_p }}
+<input type="submit" value="Save edit" />
+</form>
+
+{% endblock %}
