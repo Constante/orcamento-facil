@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load django_tables2 %}
-
+{% load crispy_forms_tags %}
 
 
 
@@ -14,23 +14,23 @@
 &nbsp&nbsp&nbsp
 <body>
 {% block content %}
-<h1>{{ single_user }}</h1>
-
-	</ul>
 
 
 
 
-<div>
-	
+
 &nbsp&nbsp&nbsp
+
+<div class="col-sm-6 col-sm-offset-3">
+	<h1>{{ form_title }}</h1>
+
 <form method="POST" action="">	{% csrf_token %}
-{{ produto_form.as_p }}
-<input type="submit" value="Save edit" />
+{{ produto_form|crispy }}
+<input type="submit" class='btn'value="Save edit" />
 </form>
 </div>
-&nbsp
-<div>
+&nbsp&nbsp&nbsp&nbsp
+<div class="col-sm-6 col-sm-offset-3">
 	<link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css">
 	{% render_table table %}
 </div>

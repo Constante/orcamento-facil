@@ -39,6 +39,8 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = (
+    'django_admin_bootstrapped.bootstrap3',
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +56,12 @@ INSTALLED_APPS = (
     'registration',
     'cadastros',
     'django_tables2',
+    'crispy_forms',
+
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

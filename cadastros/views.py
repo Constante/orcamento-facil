@@ -99,6 +99,7 @@ def cadastros(request):
 
 def edit_produtos(request, username=''):
 	
+	form_title = 'Cadastro de produto'
 	user = User.objects.get(username=username)
 	produto_form = ProdutoForm(request.POST or None)
 	produser = Produto.objects.filter(user=user)
@@ -129,7 +130,7 @@ def edit_produtos(request, username=''):
 
 	template = 'edit_produtos.html'
 
-	context = {'single_user': single_user, 'produto_form': produto_form, "table": table}
+	context = {'single_user': single_user, 'produto_form': produto_form, "table": table, 'form_title': form_title,}
 
 	return render(request, template, context)
 
