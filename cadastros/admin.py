@@ -3,6 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from .models import Produto
 
+
 class ProdutoAdmin(admin.ModelAdmin):
 	
 	# exclude = ('user',)
@@ -16,3 +17,5 @@ class ProdutoAdmin(admin.ModelAdmin):
 		obj.save()
 
 admin.site.register(Produto, ProdutoAdmin)
+
+

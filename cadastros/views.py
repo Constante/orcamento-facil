@@ -2,7 +2,10 @@ from django.shortcuts import render, Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django_tables2   import RequestConfig
 from .models import Produto 
+# from .models import Person
+from .tables  import ProdutoTable
 
 from .forms import ProdutoForm
 
@@ -101,6 +104,10 @@ def edit_produtos(request, username=''):
 	produser = Produto.objects.filter(user=user)
 	single_user = user
 	
+	table = ProdutoTable(Produto.objects.filter(user=user))
+	RequestConfig(request).configure(table)
+	RequestConfig(request, paginate={"per_page": 10}).configure(table)
+
 	# @login_required
 	if request.user.username == username:
 
@@ -122,14 +129,23 @@ def edit_produtos(request, username=''):
 
 	template = 'edit_produtos.html'
 
-	context = {'single_user': single_user, 'produto_form': produto_form}
+	context = {'single_user': single_user, 'produto_form': produto_form, "table": table}
 
 	return render(request, template, context)
 
 
-def simple_list(request):
-	queryset = Simple.objects.all()
-	template = 'edit_produtos.html'
-	table = SimpleTable(queryset)
+# def people(request):
+# 	table = PersonTable(Produto.objects.all())
+# 	RequestConfig(request).configure(table)
+# 	RequestConfig(request, paginate={"per_page": 10}).configure(table)
 
-	return render(request, template,{"table": table})
+
+# 	return render(request, "people.html", {"table": table})
+
+# def produto_table(request):
+# 	table = ProdutoTable(Produto.objects.all())
+# 	RequestConfig(request).configure(table)
+# 	RequestConfig(request, paginate={"per_page": 10}).configure(table)
+
+
+# 	return render(request, "edit_produtos", {"table": table})

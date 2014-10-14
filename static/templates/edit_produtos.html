@@ -1,24 +1,41 @@
 {% extends 'base.html' %}
-{# {% load render_table from django_tables2 %} #}
+{% load django_tables2 %}
 
 
-{% block content %}
-{{ single_user }}
 
-<ul>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
 	
-{% for item in single_user.produtos.all %}
-<li>{{ item }}</li>
+</head>
+	
+&nbsp&nbsp&nbsp
+<body>
+{% block content %}
+<h1>{{ single_user }}</h1>
 
-{% endfor %}
-</ul>
-
-{# {% render_table table %} #}
+	</ul>
 
 
+
+
+<div>
+	
+&nbsp&nbsp&nbsp
 <form method="POST" action="">	{% csrf_token %}
 {{ produto_form.as_p }}
 <input type="submit" value="Save edit" />
 </form>
-
+</div>
+&nbsp
+<div>
+	<link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css">
+	{% render_table table %}
+</div>
 {% endblock %}
+</body>
+</html>
+
+
