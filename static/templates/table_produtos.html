@@ -1,0 +1,28 @@
+
+
+{% load crispy_forms_tags %}
+
+
+
+<h2>Produtos Cadastrados</h2>
+<table>
+	<thead>
+		<th>Produto</th>
+		<th></th>
+		<th>Preço</th>
+
+	</thead>
+
+	
+	{% for produto in produtos %}
+	<table>
+	<th>{{ produto.title }}</th><th>{{ produto.price}}</th>
+	</table>
+	{% endfor %}
+
+
+</table>
+
+
+
+

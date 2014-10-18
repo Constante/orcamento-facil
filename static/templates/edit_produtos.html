@@ -13,6 +13,7 @@
 	
 &nbsp&nbsp&nbsp
 <body>
+
 {% block content %}
 
 
@@ -21,21 +22,57 @@
 
 &nbsp&nbsp&nbsp
 
-<div class="col-sm-6 col-sm-offset-3">
-	<h1>{{ form_title }}</h1>
+	<div class="col-sm-6 col-sm-offset-3">
+		<h2>{{ form_title }}</h2>
 
-<form method="POST" action="">	{% csrf_token %}
-{{ produto_form|crispy }}
-<input type="submit" class='btn'value="Save edit" />
-</form>
-</div>
-&nbsp&nbsp&nbsp&nbsp
-<div class="col-sm-6 col-sm-offset-3">
-	<link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css">
-	{% render_table table %}
-</div>
+		<form method="POST" action="">	{% csrf_token %}
+			{{ produto_form|crispy }}
+			<input type="submit" class='btn'value="Save edit" />
+
+		</form>
+		&nbsp&nbsp&nbsp
+
+		<h2>Produtos Cadastrados</h2>
+		<table class="table table-bordered">
+			<thead>
+				<th>Produto</th>
+				
+				<th>Preço</th>
+
+			</thead>
+
+			
+			{% for produto in produtos %}
+			<tbody>
+				<thead>
+					<tr>
+						<td>{{ produto.title }}</td>
+						<td>{{ produto.price}}</td>
+								
+								<td><a class="btn btn-primary btn-xs" type="button" href="">Edit</a></td>
+								<td><a class="btn btn-primary btn-xs" type="button" href="{% url "delete_produtos" produto.id %}">Delete</a></td>
+								
+							
+					</tr>
+				<thead>	
+			</tbody>
+
+			{% endfor %}
+
+
+		</table>
+
+	</div>
+	
+
+
+		
+
+
 {% endblock %}
 </body>
+
+
 </html>
 
 

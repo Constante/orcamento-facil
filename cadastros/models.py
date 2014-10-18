@@ -11,7 +11,7 @@ class Produto(models.Model):
 
 
 	def __unicode__(self):
-		return self.title 
+		return self.title
 
 
 

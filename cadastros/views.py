@@ -1,4 +1,5 @@
 from django.shortcuts import render, Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -9,7 +10,11 @@ from .tables  import ProdutoTable
 
 from .forms import ProdutoForm
 
+from django.forms.models import modelformset_factory
+from django.forms.models import inlineformset_factory
 
+from django import template
+register = template.Library()
 # Create your views here.
 
 def cadastros(request):
@@ -97,42 +102,42 @@ def cadastros(request):
 
 # 	return render(request, template, context)
 
-def edit_produtos(request, username=''):
+# def edit_produtos(request, username=''):
 	
-	form_title = 'Cadastro de produto'
-	user = User.objects.get(username=username)
-	produto_form = ProdutoForm(request.POST or None)
-	produser = Produto.objects.filter(user=user)
-	single_user = user
+# 	form_title = 'Cadastro de produto'
+# 	user = User.objects.get(username=username)
+# 	produto_form = ProdutoForm(request.POST or None)
+# 	produser = Produto.objects.filter(user=user)
+# 	single_user = user
 	
-	table = ProdutoTable(Produto.objects.filter(user=user))
-	RequestConfig(request).configure(table)
-	RequestConfig(request, paginate={"per_page": 10}).configure(table)
+# 	table = ProdutoTable(Produto.objects.filter(user=user))
+# 	RequestConfig(request).configure(table)
+# 	RequestConfig(request, paginate={"per_page": 10}).configure(table)
 
-	# @login_required
-	if request.user.username == username:
+# 	# @login_required
+# 	if request.user.username == username:
 
-		if produto_form.is_valid():
+# 		if produto_form.is_valid():
 
-			obj = produto_form.save(commit=False)
-			obj.user = request.user
-			obj.save()
-			return HttpResponseRedirect('')
+# 			obj = produto_form.save(commit=False)
+# 			obj.user = request.user
+# 			obj.save()
+# 			return HttpResponseRedirect('')
 
-	else:
-		raise Http404
+# 	else:
+# 		raise Http404
 		
 
 				
 	
 
-	# context = {'produto_form': produto_form,}
+# 	# context = {'produto_form': produto_form,}
 
-	template = 'edit_produtos.html'
+# 	template = 'edit_produtos.html'
 
-	context = {'single_user': single_user, 'produto_form': produto_form, "table": table, 'form_title': form_title,}
+# 	context = {'single_user': single_user, 'produto_form': produto_form, "table": table, 'form_title': form_title,}
 
-	return render(request, template, context)
+# 	return render(request, template, context)
 
 
 # def people(request):
@@ -150,3 +155,73 @@ def edit_produtos(request, username=''):
 
 
 # 	return render(request, "edit_produtos", {"table": table})
+
+@register.inclusion_tag("table_produtos.html")
+def edit_produtos(request, username=''):
+	
+	form_title = 'Cadastro de produto'
+	user = User.objects.get(username=username)
+	# ProdutoInlineFormSet = inlineformset_factory(Produto, form=ProdutoForm)
+	form = ProdutoForm(prefix="CP")
+	produto_form = ProdutoForm(request.POST or None, prefix="CP")
+	produtos = Produto.objects.filter(user=user)
+	single_user = user
+
+	
+	# table = ProdutoTable(Produto.objects.filter(user=user))
+	# RequestConfig(request).configure(table)
+	# RequestConfig(request, paginate={"per_page": 10}).configure(table)
+
+	# @login_required
+	if request.user.username == username:
+
+		if produto_form.is_valid():
+
+			obj = produto_form.save(commit=False)
+			obj.user = request.user
+			obj.save()
+			return HttpResponseRedirect('')
+		
+
+
+	else:
+		raise Http404
+	# if request.user.username == username:
+
+	# 	u = Produto.objects.filter(user=request.user).get(pk=id).delete()
+	# 	return HttpResponseRedirect('')
+	
+
+	# context = {'produto_form': produto_form,}
+
+	template = 'edit_produtos.html'
+
+	context = {'single_user': single_user, 'produto_form': produto_form, 'form_title': form_title, 'produtos':produtos}
+
+	return render(request, template, context)
+
+
+
+def delete_produtos(request,id):
+	username = request.user.username
+	
+	# if request.user.username == username:
+	produtoid = Produto.objects.get(id=id)
+	produtoid.delete()
+	return HttpResponseRedirect(reverse('edit_produtos', kwargs={'username': username}))
+	# else:
+	# 	raise Http404
+
+# template = 'delete_produtos.html'	
+# context = {}
+# return render(request, template, context)
+
+@register.inclusion_tag("table_produtos.html")
+def table_produtos(request):
+	produtos = Produto.objects.all()
+	template = 'table_produtos.html'
+	context = {'produtos':produtos,}
+
+	
+	
+	return render(request, template, context)
