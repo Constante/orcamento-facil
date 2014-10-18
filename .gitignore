@@ -56,3 +56,10 @@ docs/_build/
 
 # PyBuilder
 target/
+*.pyc
+*.pyc
+*.pyc
+
+transportadoras/forms.pyc
+
+*.pyc

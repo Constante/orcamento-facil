@@ -33,7 +33,8 @@
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                
+                <li><a href="/accounts/logout/">Logout</a></li>
             
               </ul>
             </li>
@@ -43,6 +44,7 @@
           </ul>
           {% else %}
           {{ html_code|safe }}
+          <li><a href="/accounts/login/"><span class="glyphicon glyphicon-user"> Login</span></a></li>
           {% endif %}
           
       
