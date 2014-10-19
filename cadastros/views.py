@@ -10,6 +10,7 @@ from .tables  import ProdutoTable
 
 from .forms import ProdutoForm
 
+
 from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
 
@@ -155,15 +156,12 @@ def cadastros(request):
 
 
 # 	return render(request, "edit_produtos", {"table": table})
-
-@register.inclusion_tag("table_produtos.html")
-def edit_produtos(request, username=''):
-	
+def add_produtos(request, username=""):
 	form_title = 'Cadastro de produto'
 	user = User.objects.get(username=username)
 	# ProdutoInlineFormSet = inlineformset_factory(Produto, form=ProdutoForm)
-	form = ProdutoForm(prefix="CP")
-	produto_form = ProdutoForm(request.POST or None, prefix="CP")
+	form = ProdutoForm(prefix="A")
+	produto_form = ProdutoForm(request.POST or None, prefix="A")
 	produtos = Produto.objects.filter(user=user)
 	single_user = user
 
@@ -194,11 +192,13 @@ def edit_produtos(request, username=''):
 
 	# context = {'produto_form': produto_form,}
 
-	template = 'edit_produtos.html'
+	template = 'add_produtos.html'
 
 	context = {'single_user': single_user, 'produto_form': produto_form, 'form_title': form_title, 'produtos':produtos}
 
 	return render(request, template, context)
+
+
 
 
 
@@ -208,13 +208,32 @@ def delete_produtos(request,id):
 	# if request.user.username == username:
 	produtoid = Produto.objects.get(id=id)
 	produtoid.delete()
-	return HttpResponseRedirect(reverse('edit_produtos', kwargs={'username': username}))
+	return HttpResponseRedirect(reverse('add_produtos', kwargs={'username': username}))
 	# else:
 	# 	raise Http404
 
 # template = 'delete_produtos.html'	
 # context = {}
 # return render(request, template, context)
+
+def edit_produtos(request, id):
+	# username = request.user.username
+	username = request.user
+
+	produtoid = Produto.objects.filter(user=username)
+	instance = Produto.objects.get(id=id)
+	
+	form = ProdutoForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		produto_edit = form.save()
+		return HttpResponseRedirect(reverse('add_produtos', kwargs={'username': username}))
+
+	template = "single_produto.html"
+	context = {"produtoid": produtoid, "edit": True, "form": form, }
+
+	return render(request, template, context)
+
 
 @register.inclusion_tag("table_produtos.html")
 def table_produtos(request):

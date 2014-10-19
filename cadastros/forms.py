@@ -1,8 +1,8 @@
-from django import forms
+from django.forms import ModelForm
 from .models import Produto
 
 
-class ProdutoForm(forms.ModelForm):
+class ProdutoForm(ModelForm):
 	# def save(self, user, commit=True):
 	# 	produto = forms.ModelForm.save(commit=False)
 	# 	produto.user = user
@@ -14,3 +14,5 @@ class ProdutoForm(forms.ModelForm):
 	class Meta:
 		model = Produto
 		exclude = ('user',)
+
+

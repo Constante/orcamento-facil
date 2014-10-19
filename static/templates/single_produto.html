@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+<div class="col-sm-6 col-sm-offset-3">
+		<h2>Edite o produto</h2>
+
+		<form method="POST" action="">	{% csrf_token %}
+			{{ form|crispy }}
+			<input name="B" type="submit" class='btn'value="Save edit" />
+
+		</form>
+
+
+{% endblock %}

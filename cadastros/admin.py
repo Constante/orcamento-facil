@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Produto
-
+# from .models import Person
 
 class ProdutoAdmin(admin.ModelAdmin):
 	
@@ -19,3 +19,8 @@ class ProdutoAdmin(admin.ModelAdmin):
 admin.site.register(Produto, ProdutoAdmin)
 
 
+# class PersonAdmin(admin.ModelAdmin):
+# 	class Meta:
+# 		model = Person
+
+# admin.site.register(Person, PersonAdmin)
