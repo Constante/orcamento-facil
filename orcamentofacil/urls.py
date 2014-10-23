@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^members/(?P<username>\w+)/$', 'cadastros.views.add_produtos', name='add_produtos'),
     url(r'^cadastros/produto/(?P<id>\d+)/$', 'cadastros.views.delete_produtos', name='delete_produtos'),
     url(r'^single_produto/(?P<id>.*)/$', 'cadastros.views.edit_produtos', name='edit_produtos'),
- 
+    url(r'^add_clients/$', 'cadastros.views.add_clients', name='add_clients'),
     # url(r'^members/(?P<username>\w+)/$', 'cadastros.views.produto_table', name='produto_table'),
     # url(r'^$', 'orcamentos.views.navbar', name='navbar'),
     (r'^accounts/', include('registration.urls')),

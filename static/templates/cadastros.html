@@ -1,10 +1,40 @@
-{% extends 'base.html' %} #}
+{% extends 'base.html' %}
+{% load django_tables2 %}
+{% load crispy_forms_tags %}
+
+
+
+{% block jquery %}
+
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+{% endblock %}
+
 
 
 {% block content %}
 
 
-<h1>{{ produtos }}</h1>
 
-<h1>{{ user }}</h1>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home">{% include "add_products.html" %}</div>
+  <div class="tab-pane" id="profile">{% include "add_clients.html" %}</div>
+  <div class="tab-pane" id="messages">...</div>
+  <div class="tab-pane" id="settings">...</div>
+</div>
+
+
 {% endblock %}
+
+

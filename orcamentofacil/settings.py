@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'cadastros',
     'django_tables2',
     'crispy_forms',
+    'django_countries',
 
 )
 
@@ -82,6 +83,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.request',
+    'cadastros.context_processors.add_clients',
+    'cadastros.context_processors.add_produtos'
+
 )
 
 

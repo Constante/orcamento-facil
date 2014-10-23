@@ -4,10 +4,12 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django_tables2   import RequestConfig
-from .models import Produto 
+from .models import Produto
+from .models import Client 
 # from .models import Person
 
 from .forms import ProdutoForm
+from .forms import ClientForm
 
 
 from django.forms.models import modelformset_factory
@@ -15,47 +17,51 @@ from django.forms.models import inlineformset_factory
 
 from django import template
 register = template.Library()
+
+
 # Create your views here.
 
 def cadastros(request):
-	user = request.user
-	produtos = Produto.objects.filter(user=user)
-	template = 'cadastros.html'
-	
-	context = {'produtos': produtos,}
-	produto_form = ProdutoForm(request.POST or None)
+	# username = request.user
+	# user = User.objects.get(username=username)
 
-	
+	if request.user.is_authenticated():
+		template = 'cadastros.html'
 
-	return render(request, template, context)
+		template_name = 'add_clients.html'
+
+		context = {'template_name': template_name }
+		# context['form'] = ClientForm()
+		# context['produto_form'] = ProdutoForm()
 
 
 
-def add_produtos(request, username=""):
-	form_title = 'Cadastro de produto'
-	user = User.objects.get(username=username)
-	# ProdutoInlineFormSet = inlineformset_factory(Produto, form=ProdutoForm)
-	form = ProdutoForm(prefix="A")
-	produto_form = ProdutoForm(request.POST or None, prefix="A")
-	produtos = Produto.objects.filter(user=user)
-	single_user = user
-
-	
-	
-	if request.user.username == username:
-
-		if produto_form.is_valid():
-
-			obj = produto_form.save(commit=False)
-			obj.user = request.user
-			obj.save()
-			return HttpResponseRedirect('')
+		return render(request, template, context)
+			
 		
-
 
 	else:
 		raise Http404
 
+
+	
+
+def add_produtos(request, username=""):
+	form_title = 'Cadastro de produto'
+	# user = User.objects.get(username=username)
+	produto_form = ProdutoForm(request.POST or None, prefix="A")
+	user = User.objects.get(username=username)
+	produtos = Produto.objects.filter(user=user)
+
+	single_user = user
+
+	if produto_form.is_valid():
+
+		obj = produto_form.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		return HttpResponseRedirect('')
+	
 
 	template = 'add_produtos.html'
 
@@ -73,7 +79,7 @@ def delete_produtos(request,id):
 
 	produtoid = Produto.objects.get(id=id)
 	produtoid.delete()
-	return HttpResponseRedirect(reverse('add_produtos', kwargs={'username': username}))
+	return HttpResponseRedirect(reverse('cadastros'))
 
 
 def edit_produtos(request, id):
@@ -87,10 +93,29 @@ def edit_produtos(request, id):
 
 	if form.is_valid():
 		produto_edit = form.save()
-		return HttpResponseRedirect(reverse('add_produtos', kwargs={'username': username}))
+		return HttpResponseRedirect(reverse('cadastros'))
 
 	template = "single_produto.html"
 	context = {"produtoid": produtoid, "edit": True, "form": form, }
+
+	return render(request, template, context)
+
+
+def add_clients(request):
+	
+	form_name = 'Cadastre seu cliente'
+	form = ClientForm(request.POST or None)
+
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		return HttpResponseRedirect('')
+	
+
+	template = "add_clients.html"
+	context = {'form': form, 'form_name': form_name}
 
 	return render(request, template, context)
 
