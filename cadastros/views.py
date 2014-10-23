@@ -86,6 +86,7 @@ def edit_produtos(request, id):
 	
 	username = request.user
 
+	
 	produtoid = Produto.objects.filter(user=username)
 	instance = Produto.objects.get(id=id)
 	
@@ -119,3 +120,30 @@ def add_clients(request):
 
 	return render(request, template, context)
 
+def edit_clients(request, id):
+	
+	username = request.user
+
+	
+	clientid = Client.objects.filter(user=username)
+	instance = Client.objects.get(id=id)
+	
+	form = ClientForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		client_edit = form.save()
+		return HttpResponseRedirect(reverse('cadastros'))
+
+	template = "edit_clients.html"
+	context = {"clientid": clientid, "edit": True, "form": form, }
+
+	return render(request, template, context)
+
+
+def delete_clients(request,id):
+	username = request.user.username
+	
+
+	clientid = Client.objects.get(id=id)
+	clientid.delete()
+	return HttpResponseRedirect(reverse('cadastros'))

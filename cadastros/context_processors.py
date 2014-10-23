@@ -36,6 +36,8 @@ def add_clients(request):
 	
 	form_name = 'Cadastre seu cliente'
 	form = ClientForm(request.POST or None)
+	user = request.user.id
+	clients = Client.objects.filter(user=user)
 
 
 	if form.is_valid():
@@ -46,7 +48,7 @@ def add_clients(request):
 	
 	return {
 
-	'add_clients': form, 'form_name': form_name
+	'add_clients': form, 'form_name': form_name, 'clients': clients
 
 	} 
 
