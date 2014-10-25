@@ -1,0 +1,56 @@
+{# {% extends 'base.html' %} #}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+
+
+<div class="col-sm-6 col-sm-offset-3">
+		<h2>{{client_name}}</h2>
+
+		<form method="POST" action="">	{% csrf_token %}
+			{{ add_clients|crispy }}
+			<input name="B" type="submit" class='btn'value="Save edit" />
+
+		</form>
+
+
+
+	<h2>Clientes Cadastrados</h2>
+		<table class="table table-condensed">
+			<thead>
+				<th>Nome</th>
+				
+				<th>Cnpj</th>
+				<th>Telefone</th>
+
+			</thead>
+
+			
+			{% for client in clients %}
+			<tbody>
+				<thead>
+					<tr>
+
+						<td>{{ client.name }}</td>
+						<td>{{ client.cnpj}}</td>
+						<td>{{ client.phone}}</td>
+						
+
+								
+								<td align="center "><a class="btn btn-primary btn-xs" type="button" href="{% url "edit_clients" client.id %}">Edit</a></td>
+								<td align="center "><a class="glyphicon glyphicon-remove" href="{% url "delete_clients" client.id %}"></a></td>
+								
+							
+					</tr>
+				<thead>	
+			</tbody>
+
+			{% endfor %}
+
+
+		</table>
+
+{% endblock %}

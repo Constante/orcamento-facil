@@ -1,7 +1,11 @@
 from django.forms import ModelForm
+from django.forms.models import inlineformset_factory
 from django import forms
 from .models import Produto
 from .models import Client
+from .models import Shipping
+from .models import ProductShip 
+
 from localflavor.br.forms import BRStateSelect
 from localflavor.br.forms import BRPhoneNumberField
 from localflavor.br.forms import BRZipCodeField
@@ -25,11 +29,9 @@ class ProdutoForm(ModelForm):
 		exclude = ('user',)
 
 
+
 class ClientForm(forms.ModelForm):
 	
-	
-
-
 	class Meta:
 		model = Client
 		form = Client
@@ -41,3 +43,17 @@ class ClientForm(forms.ModelForm):
 	cep = BRZipCodeField(required=True)
 	cnpj = BRCNPJField(label='CNPJ', required=False)
 	phone = BRPhoneNumberField(label='Telefone')
+
+
+class ShippingForm(forms.ModelForm):
+
+	class Meta:
+		model = Shipping
+		exclude = ('user',)
+
+class ProductShipForm(forms.ModelForm):
+
+	class Meta:
+		model = ProductShip
+
+	ProductShipFormset = inlineformset_factory(Shipping,Produto)

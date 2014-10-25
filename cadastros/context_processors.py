@@ -6,8 +6,10 @@ from django.contrib.auth.models import User
 
 from .models import Produto
 from .models import Client 
+from .models import Shipping 
 from .forms import ClientForm
 from .forms import ProdutoForm
+from .forms import ShippingForm
 
 def add_produtos(request, username=""):
 	form_title = 'Cadastro de produto'
@@ -48,9 +50,30 @@ def add_clients(request):
 	
 	return {
 
-	'add_clients': form, 'form_name': form_name, 'clients': clients
+	'add_clients': form, 'client_name': form_name, 'clients': clients
 
 	} 
 
+
+
+def add_shippings(request):
+	
+	form_name = 'Cadastre transportadora'
+	form = ShippingForm(request.POST or None)
+	user = request.user.id
+	shippings = Shipping.objects.filter(user=user)
+
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		
+	
+	return {
+
+	'add_shippings': form, 'shipping_name': form_name, 'shippings': shippings
+
+	} 
 
 

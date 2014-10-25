@@ -5,12 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django_tables2   import RequestConfig
 from .models import Produto
-from .models import Client 
+from .models import Client
+from .models import Shipping 
+from .models import ProductShip  
 # from .models import Person
 
 from .forms import ProdutoForm
 from .forms import ClientForm
-
+from .forms import ShippingForm
+from .forms import ProductShipForm
 
 from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
@@ -147,3 +150,42 @@ def delete_clients(request,id):
 	clientid = Client.objects.get(id=id)
 	clientid.delete()
 	return HttpResponseRedirect(reverse('cadastros'))
+
+
+
+def add_shippings(request):
+
+	form_name = 'Cadastre seu cliente'
+	form = ShippingForm(request.POST or None)
+
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		return HttpResponseRedirect('')
+	
+
+	template = "add_shippings.html"
+	context = {'form': form, 'form_name': form_name}
+
+	return render(request, template, context)
+
+def add_productshippings(request):
+
+	ps_name = 'Cadastre seu frete'
+	formset = ProductShipFormset(request.POST or None)
+
+
+	if form.is_valid():
+		obj = formset.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		return HttpResponseRedirect('')
+	
+
+	template = "add_shippings.html"
+	context = {'formset': formset, 'ps_name': ps_name}
+
+	return render(request, template, context)
+

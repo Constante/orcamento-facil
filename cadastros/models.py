@@ -43,4 +43,22 @@ class Client(models.Model):
 	def __unicode__(self):
 		return self.name
 
-		
+class Shipping(models.Model):
+	user = models.ForeignKey(User,null=True, blank=True)
+	name = models.CharField(max_length=50, verbose_name='nome')
+	cnpj = models.CharField(max_length=20, null=True,blank=False)
+	phone = models.CharField(max_length=20)
+	email = models.EmailField()
+
+
+	def __unicode__(self):
+		return self.name
+
+class ProductShip(models.Model):
+	idshipping = models.ForeignKey(Shipping,null=True, blank=True, verbose_name='transportadoras')
+	product = models.ForeignKey(Produto,null=True, blank=True, verbose_name='produto')
+	price = models.DecimalField(max_digits=20, decimal_places=2, verbose_name='preco')
+	deliverydays = models.IntegerField(max_length=30)
+
+	def __unicode__(self):
+		return self.product.title
