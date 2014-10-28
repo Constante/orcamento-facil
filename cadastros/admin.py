@@ -65,6 +65,9 @@ admin.site.register(Shipping, ShippingAdmin)
 class ProductShipAdmin(admin.ModelAdmin):
 	
 	# exclude = ('user',)
+	# inlines = [
+		
+	# ]
 
 	list_display = ['__unicode__','price', 'deliverydays' ]
 

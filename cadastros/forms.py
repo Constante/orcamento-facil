@@ -15,7 +15,7 @@ from django_localflavor_br.forms import BRPhoneNumberField
 from django_countries.widgets import CountrySelectWidget
 
 
-class ProdutoForm(ModelForm):
+class ProdutoForm(forms.ModelForm):
 	# def save(self, user, commit=True):
 	# 	produto = forms.ModelForm.save(commit=False)
 	# 	produto.user = user
@@ -50,10 +50,10 @@ class ShippingForm(forms.ModelForm):
 	class Meta:
 		model = Shipping
 		exclude = ('user',)
+		form = Shipping
+# class ProductShipForm(forms.ModelForm):
 
-class ProductShipForm(forms.ModelForm):
+# 	class Meta:
+# 		model = ProductShip
 
-	class Meta:
-		model = ProductShip
-
-	ProductShipFormset = inlineformset_factory(Shipping,Produto)
+# 	ProductShipFormset = inlineformset_factory(Shipping,Produto)

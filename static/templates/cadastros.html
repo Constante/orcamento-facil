@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load django_tables2 %}
+
 {% load crispy_forms_tags %}
 
 
@@ -18,23 +18,20 @@ $('#myTab a').click(function (e) {
 
 
 <h1 style="padding-bottom: 40px">Cadastros</h1>
-
-<div>
-<!-- Nav tabs -->
+  <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#home" role="tab" data-toggle="tab">Produtos</a></li>
-  <li><a href="#profile" role="tab" data-toggle="tab">Clientes</a></li>
-  <li><a href="#messages" role="tab" data-toggle="tab">Transportadoras</a></li>
-  <li><a href="#settings" role="tab" data-toggle="tab">Serviços</a></li>
+  <li><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane active" id="home">{% include "add_products.html" %}</div>
   <div class="tab-pane" id="profile">{% include "add_clients.html" %}</div>
-  <div class="tab-pane" id="messages">asdasd</div>
+  <div class="tab-pane" id="messages">{% include "add_shippings.html" %}</div>
   <div class="tab-pane" id="settings">...</div>
-</div>
 </div>
 
 {% endblock %}

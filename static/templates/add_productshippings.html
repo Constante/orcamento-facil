@@ -1,4 +1,4 @@
-
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
 
@@ -16,7 +16,7 @@
 
 		</form>
 
-&nbsp&nbsp&nbsp
+
 
 	<h2>Transportadoras Cadastrados</h2>
 		<table class="table table-condensed">
@@ -39,18 +39,20 @@
 						
 
 								
-								<td align="center "><a class="btn btn-primary btn-xs" type="button" href="{% url "edit_shippings" shipping.id %}">Edit</a></td>
-								<td align="center "><a class="glyphicon glyphicon-remove" href="{% url "delete_shippings" shipping.id %}"></a></td>
+								<td align="center "><a class="btn btn-primary btn-xs" type="button" href="{% url "edit_clients" shipping.id %}">Edit</a></td>
+								<td align="center "><a class="glyphicon glyphicon-remove" href="{% url "delete_clients" shipping.id %}"></a></td>
 								
 							
 					</tr>
 				<thead>	
 			</tbody>
 
+	
+		</form>
 
 			{% endfor %}
 
 
 		</table>
-	</div>
+
 {% endblock %}

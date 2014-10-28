@@ -7,13 +7,13 @@ from django_tables2   import RequestConfig
 from .models import Produto
 from .models import Client
 from .models import Shipping 
-from .models import ProductShip  
+# from .models import ProductShip  
 # from .models import Person
 
 from .forms import ProdutoForm
 from .forms import ClientForm
 from .forms import ShippingForm
-from .forms import ProductShipForm
+# from .forms import ProductShipForm
 
 from django.forms.models import modelformset_factory
 from django.forms.models import inlineformset_factory
@@ -171,21 +171,48 @@ def add_shippings(request):
 
 	return render(request, template, context)
 
-def add_productshippings(request):
+def edit_shippings(request, id):
+	
+	username = request.user
 
-	ps_name = 'Cadastre seu frete'
-	formset = ProductShipFormset(request.POST or None)
-
+	
+	shippingid = Shipping.objects.filter(user=username)
+	instance = Shipping.objects.get(id=id)
+	
+	form = ShippingForm(request.POST or None, instance=instance)
 
 	if form.is_valid():
-		obj = formset.save(commit=False)
-		obj.user = request.user
-		obj.save()
-		return HttpResponseRedirect('')
-	
+		client_edit = form.save()
+		return HttpResponseRedirect(reverse('cadastros'))
 
-	template = "add_shippings.html"
-	context = {'formset': formset, 'ps_name': ps_name}
+	template = "edit_shippings.html"
+	context = {"shippingid": shippingid, "edit": True, "form": form, }
 
 	return render(request, template, context)
+
+def delete_shippings(request,id):
+	username = request.user.username
+	
+
+	shippingid = Shipping.objects.get(id=id)
+	shippingid.delete()
+	return HttpResponseRedirect(reverse('cadastros'))
+
+# def add_productshippings(request):
+
+# 	ps_name = 'Cadastre seu frete'
+# 	formset = ProductShipFormset(request.POST or None)
+
+
+# 	if form.is_valid():
+# 		obj = formset.save(commit=False)
+# 		obj.user = request.user
+# 		obj.save()
+# 		return HttpResponseRedirect('')
+	
+
+# 	template = "add_shippings.html"
+# 	context = {'formset': formset, 'ps_name': ps_name}
+
+# 	return render(request, template, context)
 
