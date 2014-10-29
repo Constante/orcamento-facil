@@ -63,3 +63,5 @@ target/
 transportadoras/forms.pyc
 
 *.pyc
+
+*.sqlite3
