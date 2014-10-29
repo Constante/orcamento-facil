@@ -1,15 +1,6 @@
-{% extends 'base.html' %}
-{% load django_tables2 %}
 {% load crispy_forms_tags %}
 
-
-
-
-
-
-
 {% block content %}
-
 
 	<div class="col-sm-6 col-sm-offset-3">
 		<h2>{{ form_title }}</h2>
@@ -19,7 +10,7 @@
 			<input type="submit" class='btn'value="Save edit" />
 
 		</form>
-	
+		&nbsp&nbsp&nbsp
 
 		<h2>Produtos Cadastrados</h2>
 		<table class="table table-condensed">
@@ -55,12 +46,4 @@
 		</table>
 
 	</div>
-	
-
-
-		
-
-
 {% endblock %}
-
-

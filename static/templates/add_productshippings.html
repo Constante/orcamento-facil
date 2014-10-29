@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+
+
+<div class="col-sm-6 col-sm-offset-3">
+		<h2>{{shipping_name}}</h2>
+
+		<form method="POST" action="">	{% csrf_token %}
+			{{ add_shippings|crispy }}
+			<input name="B" type="submit" class='btn'value="Save edit" />
+
+		</form>
+
+
+
+	<h2>Transportadoras Cadastrados</h2>
+		<table class="table table-condensed">
+			<thead>
+				<th>Transportadora</th>	
+				<th>Cnpj</th>
+				<th>Telefone</th>
+
+			</thead>
+
+			
+			{% for shipping in shippings %}
+			<tbody>
+				<thead>
+					<tr>
+
+						<td>{{ shipping.name }}</td>
+						<td>{{ shipping.cnpj}}</td>
+						<td>{{ shipping.phone}}</td>
+						
+
+								
+								<td align="center "><a class="btn btn-primary btn-xs" type="button" href="{% url "edit_clients" shipping.id %}">Edit</a></td>
+								<td align="center "><a class="glyphicon glyphicon-remove" href="{% url "delete_clients" shipping.id %}"></a></td>
+								
+							
+					</tr>
+				<thead>	
+			</tbody>
+
+	
+		</form>
+
+			{% endfor %}
+
+
+		</table>
+
+{% endblock %}

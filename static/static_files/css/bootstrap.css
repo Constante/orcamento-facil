@@ -12,6 +12,7 @@ html {
 }
 body {
   margin: 0;
+  margin-top: 20px;
 }
 article,
 aside,
@@ -3775,6 +3776,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar {
     border-radius: 4px;
+
   }
 }
 @media (min-width: 768px) {
