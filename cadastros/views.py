@@ -4,15 +4,16 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django_tables2   import RequestConfig
-from .models import Produto
-from .models import Client
-from .models import Shipping 
+# from .models import Produto
+# from .models import Client
+# from .models import Shipping 
 # from .models import ProductShip  
 # from .models import Person
+from .models import *
 
-from .forms import ProdutoForm
-from .forms import ClientForm
-from .forms import ShippingForm
+from .forms import *
+# from .forms import ClientForm
+# from .forms import ShippingForm
 # from .forms import ProductShipForm
 
 from django.forms.models import modelformset_factory
@@ -36,13 +37,7 @@ def cadastros(request):
 		context = {'template_name': template_name }
 		# context['form'] = ClientForm()
 		# context['produto_form'] = ProdutoForm()
-
-
-
 		return render(request, template, context)
-			
-		
-
 	else:
 		raise Http404
 
@@ -216,3 +211,47 @@ def delete_shippings(request,id):
 
 # 	return render(request, template, context)
 
+def add_services(request):
+	form_name = 'Cadastre seus servicos'
+	form = ServiceForm(request.POST or None)
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		return HttpResponseRedirect('')
+
+	template = "add_services.html"
+	context = {'service': form, 'service_name': form_name}
+
+	return render(request, template, context)
+
+def add_terms(request):
+	form_name = 'Cadastre seus termos'
+	form = TermsForm(request.POST or None)
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		return HttpResponseRedirect('')
+
+	template = "add_terms.html"
+	context = {'add_terms': form, 'term_name': form_name}
+
+	return render(request, template, context)
+
+def add_garantia(request):
+	form_name = 'Cadastre suas garantias'
+	form = GuaranteeForm(request.POST or None)
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()
+		return HttpResponseRedirect('')
+
+	template = "add_garantia.html"
+	context = {'garantia': form, 'garantia_name': form_name}
+
+	return render(request, template, context)

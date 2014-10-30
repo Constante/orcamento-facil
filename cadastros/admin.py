@@ -1,10 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Produto
-from .models import Client
-from .models import Shipping
-from .models import ProductShip 
+from .models import *
+# from .models import Client
+# from .models import Shipping
+# from .models import ProductShip
+# from .models import Service
 from forms import ClientForm
 # from .models import Person
 
@@ -76,3 +77,30 @@ class ProductShipAdmin(admin.ModelAdmin):
 	
 
 admin.site.register(ProductShip, ProductShipAdmin)
+
+class ServiceAdmin(admin.ModelAdmin):
+
+	list_display = ['__unicode__','title','tipo','price','hourprice']
+
+	class Meta:
+		model = Service
+
+admin.site.register(Service, ServiceAdmin)
+
+class GuaranteeAdmin(admin.ModelAdmin):
+
+	list_display = ['__unicode__','title']
+
+	class Meta:
+		model = Guarantee
+
+admin.site.register(Guarantee, GuaranteeAdmin)
+
+class TermsAdmin(admin.ModelAdmin):
+
+	list_display = ['__unicode__','title']
+
+	class Meta:
+		model = Term
+
+admin.site.register(Term, TermsAdmin)

@@ -1,0 +1,54 @@
+
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+<h2>Servicos Cadastrados</h2>
+<div class="col-sm-6 col-sm-offset-3">
+		<h2>{{service_name}}</h2>
+
+		<form method="POST" action="">	{% csrf_token %}
+			{{ add_services|crispy }}
+
+			<input name="B" type="submit" class='btn'value="Save edit" />
+
+		</form>
+
+&nbsp&nbsp&nbsp
+
+	<h2>Servicos Cadastrados</h2>
+		<table class="table table-condensed">
+			<thead>
+				<th>Transportadora</th>	
+				<th>Cnpj</th>
+				<th>Telefone</th>
+
+			</thead>
+
+			
+			{% for service in services %}
+			<tbody>
+				<thead>
+					<tr>
+
+						<td>{{ service.title }}</td>
+						
+						<td>{{ service.title}}</td>
+						
+
+								
+						
+								
+							
+					</tr>
+				<thead>	
+			</tbody>
+
+
+			{% endfor %}
+
+
+		</table>
+	</div>
+{% endblock %}

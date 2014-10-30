@@ -1,10 +1,11 @@
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
 from django import forms
-from .models import Produto
-from .models import Client
-from .models import Shipping
-from .models import ProductShip 
+from .models import *
+# from .models import Produto
+# from .models import Client
+# from .models import Shipping
+# from .models import ProductShip 
 
 from localflavor.br.forms import BRStateSelect
 from localflavor.br.forms import BRPhoneNumberField
@@ -57,3 +58,21 @@ class ShippingForm(forms.ModelForm):
 # 		model = ProductShip
 
 # 	ProductShipFormset = inlineformset_factory(Shipping,Produto)
+class ServiceForm(forms.ModelForm):
+	
+	class Meta:
+		model = Service
+		exclude = ('user',)
+		# form = Service
+
+class TermsForm(forms.ModelForm):
+	
+	class Meta:
+		model = Term
+		exclude = ('user',)
+
+class GuaranteeForm(forms.ModelForm):
+	
+	class Meta:
+		model = Guarantee
+		exclude = ('user',)

@@ -4,12 +4,12 @@ from django.contrib.auth import authenticate
 
 from django.contrib.auth.models import User
 
-from .models import Produto
-from .models import Client 
-from .models import Shipping 
-from .forms import ClientForm
-from .forms import ProdutoForm
-from .forms import ShippingForm
+from .models import *
+# from .models import Client 
+# from .models import Shipping 
+# from .forms import ClientForm
+# from .forms import ProdutoForm
+from .forms import *
 
 def add_produtos(request, username=""):
 	form_title = 'Cadastro de produto'
@@ -69,7 +69,6 @@ def add_shippings(request):
 		obj.user = request.user
 		obj.save()
 		
-	
 	return {
 
 	'add_shippings': form, 'shipping_name': form_name, 'shippings': shippings
@@ -77,3 +76,58 @@ def add_shippings(request):
 	} 
 
 
+def add_services(request):
+	
+	form_name = 'Cadastre o servico'
+	form = ServiceForm(request.POST or None)
+	user = request.user.id
+	services = Service.objects.filter(user=user)
+
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()	
+	
+	return {
+
+	'add_services': form, 'service_name': form_name, 'services': services
+
+	} 
+
+def add_terms(request):
+	
+	form_name = 'Cadastre o termo'
+	form = TermsForm(request.POST or None)
+	user = request.user.id
+	terms = Term.objects.filter(user=user)
+
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()	
+	
+	return {
+
+	'add_terms': form, 'terms_name': form_name, 'terms': terms
+
+	} 
+def add_garantias(request):
+	
+	form_name = 'Cadastre a garantia'
+	form = GuaranteeForm(request.POST or None)
+	user = request.user.id
+	garantias = Guarantee.objects.filter(user=user)
+
+
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.user = request.user
+		obj.save()	
+	
+	return {
+
+	'add_garantias': form, 'garantia_name': form_name, 'garantias': garantias
+
+	} 

@@ -86,6 +86,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'cadastros.context_processors.add_clients',
     'cadastros.context_processors.add_produtos',
     'cadastros.context_processors.add_shippings',
+    'cadastros.context_processors.add_services',
+    'cadastros.context_processors.add_terms',
+    'cadastros.context_processors.add_garantias',
 
 
 )
