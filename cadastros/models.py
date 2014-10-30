@@ -55,6 +55,7 @@ class Shipping(models.Model):
 		return self.name
 
 class ProductShip(models.Model):
+	user = models.ForeignKey(User,null=True, blank=True)
 	idshipping = models.ForeignKey(Shipping,null=True, blank=True, verbose_name='transportadoras')
 	product = models.ForeignKey(Produto,null=True, blank=True, verbose_name='produto')
 	price = models.DecimalField(max_digits=20, decimal_places=2, verbose_name='preco')
@@ -62,3 +63,35 @@ class ProductShip(models.Model):
 
 	def __unicode__(self):
 		return self.product.title
+
+class Service(models.Model):
+	user = models.ForeignKey(User,null=True, blank=True)
+	title = models.CharField(max_length=50, verbose_name='servico')
+	description = models.CharField(max_length=500, blank=True, verbose_name='decricao')
+	price = models.DecimalField(max_digits=20, decimal_places=2, verbose_name='preco')
+	hourprice = models.DecimalField(max_digits=20, decimal_places=2, verbose_name='precohora')
+	tipo = models.BooleanField()
+
+	def __unicode__(self):
+		return self.title
+
+class Guarantee(models.Model):
+	user = models.ForeignKey(User,null=True, blank=True)
+	title = models.CharField(max_length=50, verbose_name='titulo garantia')
+	description = models.CharField(max_length=500, blank=True, verbose_name='decricao')
+	deadline = models.DateTimeField(auto_now_add=True, verbose_name='garantia')
+	product = models.ForeignKey(Produto,null=True, blank=True)
+	service = models.ForeignKey(Service,null=True, blank=True)
+
+	def __unicode__(self):
+		return self.title
+
+class Term(models.Model):
+	user = models.ForeignKey(User,null=True, blank=True)
+	title = models.CharField(max_length=50, verbose_name='titulo termo')
+	description = models.CharField(max_length=500, blank=True, verbose_name='decricao')
+	product = models.ForeignKey(Produto,null=True, blank=True)
+	service = models.ForeignKey(Service,null=True, blank=True)
+
+	def __unicode__(self):
+		return self.title
