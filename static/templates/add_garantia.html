@@ -6,12 +6,12 @@
 {% block content %}
 
 <div class="col-sm-6 col-sm-offset-3">
-		<h2>{{garantia_name}}</h2>
+		<h2>{{guarantee_title}}</h2>
 
 		<form method="POST" action="">	{% csrf_token %}
-			{{ add_garantias|crispy }}
+			{{ guarantee_form|crispy }}
 
-			<input name="B" type="submit" class='btn'value="Save edit" />
+			<input name="add_garantia" type="submit" class='btn'value="Save edit" />
 
 		</form>
 

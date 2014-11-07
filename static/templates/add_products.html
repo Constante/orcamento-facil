@@ -7,7 +7,7 @@
 
 		<form method="POST" action="">	{% csrf_token %}
 			{{ produto_form|crispy }}
-			<input type="submit" class='btn'value="Save edit" />
+			<input type="submit" class='btn' name="add_produto" value="Save edit" />
 
 		</form>
 		&nbsp&nbsp&nbsp

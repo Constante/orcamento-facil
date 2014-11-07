@@ -4,14 +4,15 @@
 
 
 {% block content %}
+
 <h2>Servicos Cadastrados</h2>
 <div class="col-sm-6 col-sm-offset-3">
-		<h2>{{service_name}}</h2>
+		<h2>{{service_title}}</h2>
 
-		<form method="POST" action="">	{% csrf_token %}
-			{{ add_services|crispy }}
+		<form method="POST" action="/cadastros/#service" name="service_form">	{% csrf_token %}
+			{{ service_form|crispy }}
 
-			<input name="B" type="submit" class='btn'value="Save edit" />
+			<input name="add_service" type="submit" class='btn' value="Save edit" />
 
 		</form>
 
@@ -20,9 +21,7 @@
 	<h2>Servicos Cadastrados</h2>
 		<table class="table table-condensed">
 			<thead>
-				<th>Transportadora</th>	
-				<th>Cnpj</th>
-				<th>Telefone</th>
+				<th>Serviços</th>	
 
 			</thead>
 
@@ -33,13 +32,7 @@
 					<tr>
 
 						<td>{{ service.title }}</td>
-						
-						<td>{{ service.title}}</td>
-						
-
-								
-						
-								
+						<td>{{ service.tipo }}</td>
 							
 					</tr>
 				<thead>	
@@ -51,4 +44,5 @@
 
 		</table>
 	</div>
+
 {% endblock %}

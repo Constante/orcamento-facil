@@ -8,11 +8,11 @@
 
 
 <div class="col-sm-6 col-sm-offset-3">
-		<h2>{{shipping_name}}</h2>
+		<h2>{{ship_title}}</h2>
 
 		<form method="POST" action="">	{% csrf_token %}
-			{{ add_shippings|crispy }}
-			<input name="B" type="submit" class='btn'value="Save edit" />
+			{{ ship_form|crispy }}
+			<input name="add_shipping" type="submit" class='btn'value="Save edit" />
 
 		</form>
 

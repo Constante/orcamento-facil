@@ -8,11 +8,11 @@
 
 
 <div class="col-sm-6 col-sm-offset-3">
-		<h2>{{client_name}}</h2>
+		<h2>{{client_title}}</h2>
 
 		<form method="POST" action="">	{% csrf_token %}
-			{{ add_clients|crispy }}
-			<input name="B" type="submit" class='btn'value="Save edit" />
+			{{ client_form|crispy }}
+			<input name="add_client" type="submit" class='btn'value="Save edit" />
 
 		</form>
 
@@ -30,7 +30,7 @@
 			</thead>
 
 			
-			{% for client in clients %}
+			{% for client in clientes %}
 			<tbody>
 				<thead>
 					<tr>

@@ -1,17 +1,12 @@
 
 {% load crispy_forms_tags %}
 
-
-
 {% block content %}
-
 <div class="col-sm-6 col-sm-offset-3">
-		<h2>{{terms_name}}</h2>
-
-		<form method="POST" action="">	{% csrf_token %}
-			{{ add_terms|crispy }}
-
-			<input name="B" type="submit" class='btn'value="Save edit" />
+		<h2>{{term_title}}</h2>
+		<form method="POST" action="/cadastros/">	{% csrf_token %}
+			{{ term_form|crispy }}
+			<input name="add_terms" type="submit" class='btn' value="Save edit" />
 
 		</form>
 

@@ -83,12 +83,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.request',
-    'cadastros.context_processors.add_clients',
-    'cadastros.context_processors.add_produtos',
-    'cadastros.context_processors.add_shippings',
-    'cadastros.context_processors.add_services',
-    'cadastros.context_processors.add_terms',
-    'cadastros.context_processors.add_garantias',
+    'cadastros.context_processors.cadastros',
+    # 'cadastros.context_processors.add_clients',
+    # 'cadastros.context_processors.add_produtos',
+    # 'cadastros.context_processors.add_shippings',
+    # 'cadastros.context_processors.add_services',
+    # 'cadastros.context_processors.add_terms',
+    # 'cadastros.context_processors.add_garantias',
 
 
 )
