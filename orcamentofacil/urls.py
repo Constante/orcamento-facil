@@ -6,13 +6,13 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'orcamentofacil.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'orcamentos.views.base', name='base'),
     url(r'^cadastros/$', 'cadastros.views.cadastros', name='cadastros'),
     # url(r'^edit/$', 'cadastros.views.edit_produtos', name='edit_produtos'),
     url(r'^members/(?P<username>\w+)/$', 'cadastros.views.add_produtos', name='add_produtos'),
-    url(r'^cadastros/produto/(?P<id>\d+)/$', 'cadastros.views.delete_produtos', name='delete_produtos'),
+    #url(r'^cadastros/produto/(?P<id>\d+)/$', 'cadastros.views.delete_produtos', name='delete_produtos'),
+    url(r'^cadastros/produto/(?P<id>\d+)/$', 'cadastros.views.deletar', name='deletar'),
     url(r'^cadastros/client/(?P<id>\d+)/$', 'cadastros.views.delete_clients', name='delete_clients'),
     url(r'^cadastros/shipping/(?P<id>\d+)/$', 'cadastros.views.delete_shippings', name='delete_shippings'),
     url(r'^single_produto/(?P<id>.*)/$', 'cadastros.views.edit_produtos', name='edit_produtos'),
@@ -25,4 +25,5 @@ urlpatterns = patterns('',
     # url(r'^$', 'orcamentos.views.navbar', name='navbar'),
     (r'^accounts/', include('registration.urls')),
     # url(r'^people/$', 'cadastros.views.people', name='people'),
+
 )

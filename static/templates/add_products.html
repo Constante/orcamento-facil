@@ -32,8 +32,8 @@
 						
 
 								
-								<td align="center "><a class="btn btn-primary btn-xs" type="button" href="{% url "edit_produtos" produto.id %}">Edit</a></td>
-								<td align="center "><a class="glyphicon glyphicon-remove" href="{% url "delete_produtos" produto.id %}"></a></td>
+								<td align="center "><a class="btn btn-primary btn-xs" type="button" name="edit_product" href="{% url "edit_produtos" produto.id %}">Edit</a></td>
+								<td align="center "><a class="glyphicon glyphicon-remove" name="delete_product" href="{% url "deletar" produto.id %}"></a></td>
 								
 							
 					</tr>

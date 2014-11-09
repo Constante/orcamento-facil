@@ -41,7 +41,12 @@ def cadastros(request):
 		# context['produto_form'] = ProdutoForm()
 		return render(request, template, context)
 	else:
-		raise Http404
+		template = 'cadastros.html'
+
+		template_name = 'add_clients.html'
+
+		context = {'template_name': template }
+		return render(request, template, context)
 
 
 	
@@ -49,9 +54,11 @@ def cadastros(request):
 def add_produtos(request):
 	return 
 
-
-
-
+def deletar(request,id):
+	username = request.user.username
+	#u = New.objects.get(pk=id).delete()
+	print request
+	return HttpResponseRedirect(reverse('cadastros'))
 
 def delete_produtos(request,id):
 	username = request.user.username

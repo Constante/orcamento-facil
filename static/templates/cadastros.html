@@ -16,6 +16,7 @@ $('#myTab a').click(function (e) {
 
 {% block content %}
 
+{% if verUser %}
 
 <h1 style="padding-bottom: 40px">Cadastros</h1>
   <!-- Nav tabs -->
@@ -37,6 +38,11 @@ $('#myTab a').click(function (e) {
   <div class="tab-pane" id="terms">{% include "add_terms.html" %}</div>
   <div class="tab-pane" id="garantia">{% include "add_garantia.html" %}</div>
 </div>
+{% else %}
+<div style="text-align: center">
+<h1>Você precisa estar logado para ver isso! </h1><a href="/accounts/login/"><button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-user"></span> Login</button></a>
+</div>
+{% endif %}
 
 {% endblock %}
 

@@ -33,7 +33,8 @@
 
 						<td>{{ service.title }}</td>
 						<td>{{ service.tipo }}</td>
-							
+							<td align="center "><a class="btn btn-primary btn-xs" type="button" href="{% url "edit_produtos" service.id %}">Edit</a></td>
+								<td align="center "><a class="glyphicon glyphicon-remove" href="{% url "deletar" service.id %}"></a></td>
 					</tr>
 				<thead>	
 			</tbody>

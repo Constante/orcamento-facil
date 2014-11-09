@@ -11,6 +11,7 @@ from .forms import *
 def cadastros(request):
 	if request.user.is_authenticated():
 		user = request.user.id
+		verUser = True
 		# Popular os titulos
 		ProductFormTitle = 'Cadastre Produto'
 		ClientFormTitle = 'Cadastre seu Cliente'
@@ -18,7 +19,7 @@ def cadastros(request):
 		ServiceFormTitle = 'Cadastre o servico'
 		TermsFormTitle = 'Cadastre o termo'
 		GuaranteeFormTitle = 'Cadastre a garantia'
-
+		print verUser
 		# Popular os forms
 		ProductFormContext = ProdutoForm(request.POST or None, prefix="product")
 		ClientFormContext = ClientForm(request.POST or None, prefix="client")
@@ -80,6 +81,7 @@ def cadastros(request):
 					obj.save()
 					GuaranteeFormContext.clean()
 		return {
+		'verUser':verUser,
 		'produto_form': ProductFormContext, 'form_title': ProductFormTitle,'produtos': produtos,
 		'client_form': ClientFormContext, 'client_title': ClientFormTitle,'clientes': clientes,
 		'ship_form': ShippingFormContext, 'ship_title': ShippingFormTitle,'shippings': shippings,
@@ -88,7 +90,13 @@ def cadastros(request):
 		'guarantee_form': GuaranteeFormContext, 'guarantee_title': GuaranteeFormTitle,'guarantees': garantias,
 		}
 	else:
-		raise Http404
+
+		verUser = False
+		print verUser
+		padrao = "Voce precisa estar logado"
+		return {
+		'padrao':padrao
+		}
 
 
 
