@@ -104,3 +104,12 @@ class TermsAdmin(admin.ModelAdmin):
 		model = Term
 
 admin.site.register(Term, TermsAdmin)
+
+class PaymentAdmin(admin.ModelAdmin):
+
+	list_display = ['__unicode__','title','product','productDiscount','productInstallments','service','serviceDiscount','serviceInstallments']
+
+	class Meta:
+		model = Payment
+
+admin.site.register(Payment, PaymentAdmin)

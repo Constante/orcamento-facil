@@ -76,3 +76,9 @@ class GuaranteeForm(forms.ModelForm):
 	class Meta:
 		model = Guarantee
 		exclude = ('user',)
+
+class PaymentForm(forms.ModelForm):
+	
+	class Meta:
+		model = Payment
+		exclude = ('user',)

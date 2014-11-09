@@ -1,0 +1,48 @@
+
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+<h2>Pagamentos Cadastrados</h2>
+<div class="col-sm-6 col-sm-offset-3">
+		<h2>{{payment_title}}</h2>
+
+		<form method="POST" action="/cadastros/#payment" name="payment_form">	{% csrf_token %}
+			{{ payment_form|crispy }}
+
+			<input name="add_payment" type="submit" class='btn' value="Save edit" />
+
+		</form>
+
+&nbsp&nbsp&nbsp
+
+	<h2>Pagamentos Cadastrados</h2>
+		<table class="table table-condensed">
+			<thead>
+				<th>Pagamentos</th>	
+
+			</thead>
+
+			
+			{% for payment in payments %}
+			<tbody>
+				<thead>
+					<tr>
+
+						<td>{{ payment.title }}</td>
+						<td>{{ payment.description }}</td>
+		
+					</tr>
+				<thead>	
+			</tbody>
+
+
+			{% endfor %}
+
+
+		</table>
+	</div>
+
+{% endblock %}

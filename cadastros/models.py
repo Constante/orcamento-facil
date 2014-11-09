@@ -95,3 +95,17 @@ class Term(models.Model):
 
 	def __unicode__(self):
 		return self.title
+
+class Payment(models.Model):
+	user = models.ForeignKey(User,null=True, blank=True)
+	title = models.CharField(unique=True, max_length=50, verbose_name='titulo pagamento')
+	description = models.CharField(max_length=500, blank=True, verbose_name='decricao')
+	product = models.ForeignKey(Produto,null=True, blank=True)
+	productDiscount = models.DecimalField(max_digits=20, decimal_places=1, verbose_name='desconto Produto',blank=True)
+	productInstallments = models.DecimalField(max_digits=2, decimal_places=0,verbose_name='parcelamento Produto',blank=True)
+	service = models.ForeignKey(Service,null=True, blank=True)
+	serviceDiscount = models.DecimalField(max_digits=20, decimal_places=1, verbose_name='desconto Service',blank=True)
+	serviceInstallments = models.DecimalField(max_digits=2, decimal_places=0, verbose_name='parcelamento Service',blank=True)
+
+	def __unicode__(self):
+		return self.title

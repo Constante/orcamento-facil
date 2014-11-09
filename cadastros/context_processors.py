@@ -19,7 +19,8 @@ def cadastros(request):
 		ServiceFormTitle = 'Cadastre o servico'
 		TermsFormTitle = 'Cadastre o termo'
 		GuaranteeFormTitle = 'Cadastre a garantia'
-		print verUser
+		PaymentFormTitle = 'Cadastre o pagamento'
+		
 		# Popular os forms
 		ProductFormContext = ProdutoForm(request.POST or None, prefix="product")
 		ClientFormContext = ClientForm(request.POST or None, prefix="client")
@@ -27,6 +28,7 @@ def cadastros(request):
 		ServiceFormContext = ServiceForm(request.POST or None, prefix="serv")
 		TermsFormContext = TermsForm(request.POST or None, prefix="term")
 		GuaranteeFormContext = GuaranteeForm(request.POST or None, prefix="gar")
+		PaymentFormContext = PaymentForm(request.POST or None, prefix="pay")
 
 		# Popular os tables
 		produtos = Produto.objects.filter(user=user)
@@ -35,6 +37,7 @@ def cadastros(request):
 		services = Service.objects.filter(user=user)
 		terms = Term.objects.filter(user=user)
 		garantias = Guarantee.objects.filter(user=user)
+		payments = Payment.objects.filter(user=user)
 
 		if request.method == 'POST':
 			
@@ -80,6 +83,13 @@ def cadastros(request):
 					obj.user = request.user
 					obj.save()
 					GuaranteeFormContext.clean()
+			elif 'add_payment' in request.POST:
+				PaymentFormContext = PaymentForm(request.POST or None, prefix="pay")
+				if PaymentFormContext.is_valid():
+					obj = PaymentFormContext.save(commit=False)
+					obj.user = request.user
+					obj.save()
+					PaymentFormContext.clean()
 		return {
 		'verUser':verUser,
 		'produto_form': ProductFormContext, 'form_title': ProductFormTitle,'produtos': produtos,
@@ -88,12 +98,13 @@ def cadastros(request):
 		'service_form': ServiceFormContext, 'service_title': ServiceFormTitle,'services': services,
 		'term_form': TermsFormContext, 'term_title': TermsFormContext,
 		'guarantee_form': GuaranteeFormContext, 'guarantee_title': GuaranteeFormTitle,'guarantees': garantias,
+		'payment_form': PaymentFormContext, 'payment_title': PaymentFormTitle,'payments': payments,
 		}
 	else:
 
 		verUser = False
 		print verUser
-		padrao = "Voce precisa estar logado"
+		padrao = "Voce precisa estar logado para ver isso."
 		return {
 		'padrao':padrao
 		}
